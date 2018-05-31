@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--Charles Towle HW#3-->
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Guess a letter
+  </title>
+</head>
+
+<body>
+  <!-- intro  to game -->
+  <div id="game">
+    <h1>The Psychic Game</h1>
+    <h3>Please pick a letter to start the game!</h3>
+  </div>
+   <!--initialize variables-->
+  <script type="text/javascript">
+    let winCount = 0;
+    let guesses = 9;
+    let lossesCount = 0;
+    // Creates an array that lists out all of the options (Rock, Paper, or Scissors).
+    let computerChoices = ["a","b", "c","d","e","f","g","h","i","j","k","l", "m","n","o","p","q",
+                            "r","s","t","u","v","w","x","y","z"];
+    let computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    // This function is run whenever the user presses a key.
+    document.onkeyup = function(event) {
+      // Determines which key was pressed.
+      let userGuess = event.key;     
+      // call renderGame function to refresh the new game state
+      renderGame(userGuess, computerGuess);
+    };
+    // takes care of managing the entire game state
+    function renderGame(userGuess) {
+      if (guesses==9){
+        // Randomly chooses a choice from the options array. This is the Computer's guess.
+        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)]
+        //var lt = document.createElement("div")
+        //var t = document.createTextNode(computerGuess)
+        //lt.appendChild(t)
+        //guessAppend.appendChild(t)
+        //document.guessAppend.appendChild(t)
+      }
+      // if user guesses correctly update win and reset game
+      if (userGuess === computerGuess){
+        winCount++
+        guesses=9
+        lossesCount=0
+         }
+      else{
+        guesses--}
+      // reset game if ran out of guesses
+      if(guesses == 0){
+        guesses =9
+        lossesCount++
+      }
+        // set dynamic html 
+    let game = document.getElementById('game')
+    game.innerHTML = `
+      <h1>The Psychic Game</h1>
+      <h3>Guess what letter I'm thinking of</h3>
+      <div>wins: ${winCount}</div>
+      <div>losses: ${lossesCount}</div>
+      <div>Your Guesses Left: ${guesses}</div>        
+      <div id="guessAppend">Your Guesses so far: ${userGuess}</div>
+      <div>The computer choose: ${computerGuess}</div>`
+    }
+    //   targetDiv.appendChild(newDiv);
+  </script>
+</body>
+</html>
